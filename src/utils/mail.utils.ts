@@ -1,32 +1,32 @@
-import { sendEmail } from './mail.utils';
+// src/utils/mail.utils.ts
 import nodemailer from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
-import { text } from 'stream/consumers';
 
-const trensport = nodemailer.createTransport({
+const transport = nodemailer.createTransport({
     host: process.env.MAIL_HOST,
-    port: process.env.MAIL_PORT,
-    secure: process.env.NODE_ENV !== 'development',//true
+    port: Number(process.env.MAIL_PORT), // Assurez-vous que le port est un nombre
+    secure: process.env.NODE_ENV !== 'development', // true
     auth: {
-         user:process.env.MAIL_USER,
-         pass:process.env.MAIL_PASSWORD
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASSWORD,
+    },
+} as SMTPTransport.Options);
 
-},
-}as SMTPTransport.Options)
-type SendEmailDto= {
+type SendEmailDto = {
     sender: Mail.Address,
-    receipients:Mail.Address[],
-    subject:string;
-    message:string;
-}
-export const sendEmail = async(dto:SendEmailDto)=>{
-    const {sender, reciepients, subject,message}= dto;
-    return await transport.sendEmail({
-        from:sender,
-        to:reciepients,
+    recipients: Mail.Address[], // Correction de l'orthographe de "recipients"
+    subject: string;
+    message: string;
+};
+
+export const sendEmail = async (dto: SendEmailDto) => {
+    const { sender, recipients, subject, message } = dto;
+    return await transport.sendMail({ // Utilisez sendMail au lieu de sendEmail
+        from: sender,
+        to: recipients,
         subject,
-        html:message,
-        text:message,
-    })
-}
+        html: message,
+        text: message,
+    });
+};

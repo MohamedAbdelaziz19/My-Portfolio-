@@ -1,8 +1,7 @@
-// Example route.ts
-import { NextApiRequest, NextApiResponse } from 'next';
+// src/app/api/route.ts
+import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
-// Define the request body type
 interface EmailRequest {
   name: string;
   email: string;
@@ -10,36 +9,36 @@ interface EmailRequest {
   message: string;
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    const data: EmailRequest = req.body; // Explicitly typing the body
+// Exporter la fonction GET si nécessaire (optionnel)
+export async function GET() {
+  return NextResponse.json({ message: 'GET request successful!' });
+}
 
-    // Example of sending an email
-    try {
-      // Your nodemailer setup and email sending logic here
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.EMAIL_USER, // use environment variable
-          pass: process.env.EMAIL_PASS, // use environment variable
-        },
-      });
+// La fonction POST pour envoyer des e-mails
+export async function POST(req: Request) {
+  const data: EmailRequest = await req.json(); // Lire le corps de la requête
 
-      const mailOptions = {
-        from: data.email,
-        to: process.env.EMAIL_USER,
-        subject: data.subject,
-        text: `${data.name}: ${data.message}`,
-      };
+  // Exemple d'envoi d'un e-mail
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER, // Utiliser une variable d'environnement
+        pass: process.env.EMAIL_PASS, // Utiliser une variable d'environnement
+      },
+    });
 
-      await transporter.sendMail(mailOptions);
-      res.status(200).json({ message: 'Email sent successfully' });
-    } catch (err: unknown) {
-      console.error(err);
-      res.status(500).json({ error: 'Failed to send email' });
-    }
-  } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    const mailOptions = {
+      from: data.email,
+      to: process.env.EMAIL_USER,
+      subject: data.subject,
+      text: `${data.name}: ${data.message}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+    return NextResponse.json({ message: 'Email sent successfully' });
+  } catch (err: unknown) {
+    console.error(err);
+    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
   }
 }

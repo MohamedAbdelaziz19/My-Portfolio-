@@ -1,18 +1,15 @@
-// app/layout.tsx
-import './globals.css'
+// src/app/layout.tsx
+import './globals.css';
+import { ReactNode } from 'react';
 
-export default function RootLayout({ children }) {
+interface RootLayoutProps {
+  children: ReactNode; // Définir le type pour les enfants
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className="bg-gray-100 text-gray-900">
-        <header>
-          {/* Navigation Component */}
-        </header>
-        <main>{children}</main>
-        <footer>
-          {/* Footer Component */}
-        </footer>
-      </body>
+      <body className="bg-gray-100 text-gray-900">{children}</body>
     </html>
-  )
+  );
 }
