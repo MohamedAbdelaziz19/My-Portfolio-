@@ -1,0 +1,31 @@
+/* Service.module.css */
+
+.servicesBox {
+    flex: 1 1 30rem;
+    background: rgba(0, 0, 0, 0.452);
+    padding: 3rem 2rem 4rem;
+    border-radius: 2rem;
+    text-align: center;
+    border: 0.2rem solid rgba(0, 0, 0, 0.246);
+    transition: transform 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    animation: slideInLeft 1s ease-out forwards;
+    animation-delay: calc(0.2s * var(--i));
+    opacity: 0;
+  }
+  
+  .servicesBox:hover {
+    border-color: goldenrod;
+    transform: scale(1.02);
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
