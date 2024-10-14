@@ -1,15 +1,15 @@
 'use client';
 import Link from 'next/link';
 import { FaGithub, FaLinkedinIn, FaInstagram, FaBehance } from 'react-icons/fa';
-import { CldImage } from 'next-cloudinary';
+import Image from 'next/image';
 
 const Footer = () => {
   return (
     <footer className="text-white bg-gray-900">
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex justify-center">
-          <CldImage
-            src="https://res.cloudinary.com/dzo2bvw5a/image/upload/v1723116603/profileImage_npkuum.jpg"
+          <Image
+            src="/img/azizvector.jpg"
             alt="Profile"
             width={50}
             height={50}

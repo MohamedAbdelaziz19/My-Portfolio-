@@ -2,7 +2,7 @@
 
 import React from 'react';
 import projects from '@/../public/data'; // Ensure this path is correct
-import { CldImage } from 'next-cloudinary';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 function Project() {
@@ -22,7 +22,7 @@ function Project() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
             >
-              <CldImage
+              <Image
                 src={project.imgSrc}
                 alt={project.title}
                 width={400}
