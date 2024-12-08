@@ -47,7 +47,7 @@ const HeroSection: React.FC = () => {
     <FaBehance size={24} />
           </a>
         </div>
-        <a href="AzizNVCV.pdf" className="inline-block px-6 py-3 bg-primary text-white hover:text-primary font-semibold rounded-lg shadow-md hover:bg-white transition duration-300">
+        <a href="Maaref_Abdelaziz_cv.pdf" className="inline-block px-6 py-3 bg-primary text-white hover:text-primary font-semibold rounded-lg shadow-md hover:bg-white transition duration-300">
           Download CV
         </a>
       </div>
